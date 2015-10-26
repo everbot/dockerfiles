@@ -52,6 +52,7 @@ RUN cd ~/dev/ && \
     bash setup.sh
 
 # some additional packages {{{
+RUN yaourt --noconfirm -S neovim-git
 # end additional packages }}}
 
 CMD ["/home/tung/bootstrap.sh", "-zsh"]
