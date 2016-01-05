@@ -6,16 +6,15 @@
 FROM everbot/archlinux
 MAINTAINER everbot
 
+ADD mirrorlist /etc/pacman.d/
+
 RUN pacman -Syy && \
     pacman --noconfirm -Syu
 
-RUN pacman --noconfirm -S base-devel
-RUN pacman --noconfirm -S git vim
-RUN pacman --noconfirm -S ruby python
-RUN pacman --noconfirm -S the_silver_searcher
-RUN pacman --noconfirm -S tmux zsh
-RUN pacman --noconfirm -S ranger
-RUN pacman --noconfirm -S ttf-dejavu
+RUN pacman --noconfirm -S base-devel \
+    git vim ruby python \
+    the_silver_searcher \
+    tmux zsh ranger ttf-dejavu
 
 # fix key repetition when running tmux
 RUN pacman --noconfirm -S rxvt-unicode
@@ -47,13 +46,14 @@ RUN sudo chown tung:users /home/tung/bootstrap.sh && chmod a+rx /home/tung/boots
 # dotfiles stuff
 RUN mkdir ~/dev
 RUN cd ~/dev/ && \
-    git clone http://github.com/everbot/mylinux && \
+    git clone http://github.com/tungel/mylinux && \
     cd mylinux && \
     bash setup.sh
 
 # some additional packages {{{
 RUN yaourt --noconfirm -S neovim-git
 # end additional packages }}}
+
 
 CMD ["/home/tung/bootstrap.sh", "-zsh"]
 
