@@ -14,7 +14,7 @@ RUN pacman -Syy && \
 RUN pacman --noconfirm -S base-devel \
     git vim ruby python \
     the_silver_searcher \
-    tmux zsh ranger ttf-dejavu
+    tmux zsh ranger ttf-dejavu neovim
 
 # fix key repetition when running tmux
 RUN pacman --noconfirm -S rxvt-unicode
@@ -28,14 +28,14 @@ USER tung
 # install `package-query`
 RUN mkdir ~/Downloads && \
     cd ~/Downloads && \
-    curl -O https://aur4.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz && \
+    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz && \
     tar xzvf package-query.tar.gz && \
     cd package-query && \
     makepkg -sri --noconfirm
 
 # install `yaourt`
 RUN cd ~/Downloads && \
-    curl -O https://aur4.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz && \
+    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz && \
     tar xzvf yaourt.tar.gz && \
     cd yaourt && \
     makepkg -sri --noconfirm
@@ -51,7 +51,7 @@ RUN cd ~/dev/ && \
     bash setup.sh
 
 # some additional packages {{{
-RUN yaourt --noconfirm -S neovim-git
+# RUN yaourt --noconfirm -S neovim-git
 # end additional packages }}}
 
 
