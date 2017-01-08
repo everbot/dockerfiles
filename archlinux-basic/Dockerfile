@@ -14,7 +14,7 @@ RUN pacman -Syy && \
 RUN pacman --noconfirm -S base-devel \
     git vim ruby python \
     the_silver_searcher \
-    tmux zsh ranger ttf-dejavu neovim
+    tmux zsh ranger ttf-dejavu
 
 # fix key repetition when running tmux
 RUN pacman --noconfirm -S rxvt-unicode
@@ -50,9 +50,9 @@ RUN cd ~/dev/ && \
     cd mylinux && \
     bash setup.sh
 
-# some additional packages {{{
-# RUN yaourt --noconfirm -S neovim-git
-# end additional packages }}}
+# for Neovim
+RUN sudo pacman --noconfirm -S neovim python-pip
+RUN pip3 install --user neovim
 
 
 CMD ["/home/tung/bootstrap.sh", "-zsh"]
