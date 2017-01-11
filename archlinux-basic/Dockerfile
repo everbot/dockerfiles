@@ -7,6 +7,7 @@ FROM everbot/archlinux
 MAINTAINER everbot
 
 ADD mirrorlist /etc/pacman.d/
+RUN chmod 644 /etc/pacman.d/mirrorlist
 
 RUN pacman -Syy && \
     pacman --noconfirm -Syu
