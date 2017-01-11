@@ -120,10 +120,14 @@ mknod -m 600 $DEV/initctl p
 mknod -m 666 $DEV/ptmx c 5 2
 ln -sf /proc/self/fd $DEV/fd
 
-tar --numeric-owner --xattrs --acls -C $ROOTFS -czvf archlinux-$(date +"%Y-%m-%d").tar.gz .
+currentDate=$(date +"%Y-%m-%d")
+export currentDate
+# perl -e 'print "$ENV{currentDate}"'
+
+tar --numeric-owner --xattrs --acls -C $ROOTFS -czvf archlinux-$currentDate.tar.gz .
 
 # update new tarball file name in Dockerfile
-perl -i -pe '$curdate=`date +"%Y-%m-%d"`; chomp $curdate; s/\d+-\d+-\d+/$curdate/' Dockerfile
+perl -i -pe '$curdate=$ENV{currentDate}; chomp $curdate; s/\d+-\d+-\d+/$curdate/g' Dockerfile
 
 
 # tar --numeric-owner --xattrs --acls -C $ROOTFS -c . | docker import - archlinux
