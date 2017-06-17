@@ -2,6 +2,10 @@
 
 FROM armhf/alpine
 
+RUN apk update && \
+apk upgrade && \
+rm -rf /var/cache/apk/*
+
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 8.1.2
 
