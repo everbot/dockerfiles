@@ -1,6 +1,12 @@
-# ref: https://github.com/nodejs/docker-node/blob/master/8.1/alpine/Dockerfile
+# Refs:
+# https://github.com/nodejs/docker-node/blob/master/8.1/alpine/Dockerfile
+# https://github.com/resin-io-projects/armv7hf-debian-qemu
 
-FROM armhf/alpine
+FROM arm32v6/alpine
+
+COPY bin/ /usr/bin/
+
+RUN [ "cross-build-start" ]
 
 RUN apk update && \
 apk upgrade && \
@@ -71,5 +77,7 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
   && apk del .build-deps-yarn
+
+RUN [ "cross-build-end" ]
 
 CMD [ "node" ]
